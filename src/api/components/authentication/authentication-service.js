@@ -51,7 +51,9 @@ async function updateLoginAttempts(email, success) {
         await authenticationRepository.updateLoginAttempts(attemptData);
 
         if (attemptData.attempts >= maxLoginAttempts) {
-          throw new Error('Too many failed login attempts');
+          throw new Error('Too many failed login attempts. Try again later.');
+        } else if (Date.now() - attemptData.lastAttempt >= loginTimeout) {
+          await authenticationRepository.resetLoginAttempts(email);
         }
       }
     } else {

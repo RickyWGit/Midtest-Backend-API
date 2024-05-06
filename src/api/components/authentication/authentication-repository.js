@@ -30,8 +30,12 @@ async function resetLoginAttempts(email) {
   }
 }
 
+async function loginAttemptsExceeded(email) {
+  console.log('Attempting to login');
+}
 module.exports = {
   getUserByEmail,
   tryLoginAttempt,
   resetLoginAttempts,
+  loginAttemptsExceeded,
 };
